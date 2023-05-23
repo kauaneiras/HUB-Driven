@@ -1,57 +1,46 @@
-//01 - Vogal ou Consoante
+//01 - Iguais ou Diferentes
 /*
-Crie uma função chamada verificaLetra(c), que recebe uma string de um caracter (uma letra) 
-e retorna se a letra é uma "Vogal" ou uma "Consoante". Deve retornar uma dessas strings, 
-inclusive com a primeira letra maiúscula.
+Crie uma função chamada comparaNumeros(num1, num2), a função deve retornar "IGUAIS" caso os números sejam iguais, ou "DIFERENTES" caso os números sejam diferentes.
 */
+function comparaNumeros(num1, num2) {
+    if (num1 === num2) {
+        return "IGUAIS";
+    } else {
+        return "DIFERENTES";
+    }
+}; 
 
-function verificaLetra(c){ //Solução com operadores lógicos
-  if (c === "a" || c === "e" || c === "i" || c === "o" || c === "u"){
-    return "Vogal"
+//02 - Baskhara
+/* 
+Crie uma função chamada calculaUmaRaiz(a, b, c, sinal) que vai receber os parâmetros a, b e c que representam respectivamente os coeficentes de uma equação do segundo grau da forma:
+
+E que recebe também o parâmetro booleano sinal. Esse parâmetro vai definir qual das duas raízes estaremos calculando.
+
+Se sinal = true, então devemos calcular a raíz positiva da equação de Baskhara:
+
+Se sinal = false, então devemos calcular a raíz negativa da equação de Baskhara:
+
+Sua função deve retornar o valor da raíz desejada corretamente.
+*/
+function calculaUmaRaiz(a, b, c, sinal){
+  if (sinal === true){
+    const delta = Math.sqrt(b*b-4*a*c);
+    const raizPositiva = (-b+delta)/(2*a);
+    return raizPositiva;
   } else {
-    return "Consoante"
+    const delta = Math.sqrt((b*b-4*a*c));
+    const raizNegativa = (-b-delta)/(2*a);
+    return raizNegativa;
   }
 };
 
-//02 - Verifica Intervalo
+//Idade legal para consumo de bebidas alcoólicas
 /*
-Escreva uma função chamada verifica25(x, y) que recebe dois números e verifica se o número 25 está contido no 
-intervalo aberto (x, y), ou seja, o intervalo dos números estritamente maiores que x e estritamente menores que y. 
-Essa função deve retornar true caso 25 esteja contido no intervalo e false caso contrário.
-*/
+Imagine que você trabalhe para uma ONG que estuda o consumo de alcool entre adolescentes, e essa ONG tem base em 6 países diferentes Brasil, EUA, Paraguai, Jamaica, Irã e Armênia.
 
-function verifica25(x, y) {
-  if (x < 25 && y > 25) {
-    return true;
-  }
-  return false;
-};
+Você deve criar uma função chamada isLegal(age, country) que receba a idade de uma pessoa e o nome do seu país de origem. Essa função deve retornar true caso a pessoa tenha autorização legal para ingerir bebidas alcoólicas naquele país, ou false em caso contrário. Utilize as informações abaixo:
 
-//03 - Raíz Exata
-/*
-Crie uma função chamada testeRaizExata() que recebe um número como parâmetro e calcula a raíz quadrada desse número e verifica se a raíz é exata ou não.
-Se a raíz for exata retorne true, senão retorne false.
-*/
-
-function testeRaizExata(numero){
-  let x = Math.sqrt(numero)
-  if(Number.isInteger(x)){
-    return true;
-  }
-  else{return false}
-};
-
-//04 - Update isLegal(age, country)
-/*
-A fictícia ONG que você ajudou no exercício do Módulo anterior, abriu duas novas sedes, em Portugal e no Egito. Mas esses novos países tem leis diferentes para permitir o consumo de álcool de seus cidadãos.
-
-Em Portugal a idade legal para consumo de Cervejas e Vinhos é 16 anos, e as demais bebidas 18 anos. Já no Egito, a Cerveja é permitida a partir dos 18 anos, enquanto outras bebidas são permitidas apenas após os 21 anos.
-
-A sua função isLegal(age, country), precisa ser atualizada para isLegal(age, country, drink = ""), para que ela possa receber esse novo parâmetro que indica qual a bebida que está sendo comprada.
-
-Dica: Ao definir a função dessa forma: isLegal(age, country, drink = ""), estamos dizendo que ao chamar a função, caso não seja passado nenhum parâmetro indicando um valor para a variável drink, queremos que o valor de drink seja uma string vazia("").
-
-Novamente observando nossa tabela, temos:
+Tabela de Países e suas respectivas idades legais para consumo de bebida alcoólicas:
 
 Brasil: 18 anos
 EUA: 21 anos
@@ -59,41 +48,34 @@ Paraguai: 20 anos
 Jamaica: 16 anos
 Irã: nunca
 Armênia: sem limite de idade
-Portugal: cerveja ou vinho 16 anos, demais bebidas alcoólicas 18 anos
-Egito: cerveja 18 anos, demais bebidas 21 anos
 
 
-Obs: Para quesitos de testes, considere as strings dos nomes dos países sendo "brasil", "eua", "paraguai", "jamaica", "ira", "armenia", "portugal" e "egito".
+Obs: Considere as strings enviadas por parâmetro na função da seguinte forma: "Brasil", "EUA", "Paraguai", "Jamaica", "Irã", "Armênia"
 */
 
-function isLegal(age, country, drink = ""){
-  country = country.toLowerCase();
-  if (country === "brasil" && age >= 18)
+function isLegal(age, country){
+  if (country === "Armênia"){
     return true;
-  if (country === "eua" && age >= 21)
-    return true;
-  if (country === "paraguai" && age >= 20)
-    return true;
-  if (country === "jamaica" && age >= 16)
-    return true;
-  if (country === "portugal"){
-    if(age >= 18)
-    	return true;
-    else if ((drink === "cerveja" || drink === "vinho") && age >= 16)
+  }
+  if (age >= 16){
+    if (country === "Jamaica"){
       return true;
-    else 
-      return false;
+    } 
   }
-  if (country === "egito"){
-    if(age >= 21)
-    	return true;
-    else if (drink === "cerveja" && age >= 18)
+  if (age >= 18){
+    if (country === "Brasil"){
       return true;
-    else 
-      return false;
+    }
   }
-  if(country === "armenia"){
-    return true;
+  if (age >= 20){
+    if (country === "Paraguai"){
+      return true;
+    }
   }
-  return false;
-}
+  if (age >= 21){
+    if (country === "EUA"){
+      return true;
+    }
+  }
+  return false
+};
